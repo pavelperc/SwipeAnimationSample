@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         binding.buttonReset.setOnClickListener {
             binding.swipeView.reset()
         }
+        binding.swipeView.onSwipeComplete = {
+            Snackbar.make(binding.swipeView, "swiped", 500).show()
+        }
         setupNestedRecycler()
     }
 
@@ -80,8 +83,7 @@ class MainActivity : AppCompatActivity() {
             holder.itemView.backgroundTintList = ColorStateList.valueOf(color)
             (holder.itemView as TextView).text = absolutePosition.toString()
             holder.itemView.setOnClickListener {
-                Snackbar.make(holder.itemView, "click $absolutePosition", 500)
-                    .show()
+                Snackbar.make(holder.itemView, "click $absolutePosition", 500).show()
             }
         }
 

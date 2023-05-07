@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
@@ -27,6 +28,8 @@ class SwipeView @JvmOverloads constructor(
         private const val TAG = "SwipeView"
     }
 
+    var onSwipeComplete: (() -> Unit)? = null
+
     private val dragHelperCallback = object : ViewDragHelper.Callback() {
         override fun tryCaptureView(child: View, pointerId: Int) = child === view
         override fun getViewHorizontalDragRange(child: View) = width
@@ -48,6 +51,12 @@ class SwipeView @JvmOverloads constructor(
             val scrimAlpha = ((width - left) / width.toFloat()) * 255 * START_SCRIM_ALPHA
             val scrimColor = ColorUtils.setAlphaComponent(Color.BLACK, scrimAlpha.toInt())
             setBackgroundColor(scrimColor)
+        }
+
+        override fun onViewDragStateChanged(state: Int) {
+            if (state == ViewDragHelper.STATE_IDLE && view.x != 0f) {
+                onSwipeComplete?.invoke()
+            }
         }
     }
 
