@@ -23,6 +23,8 @@ class SwipeView @JvmOverloads constructor(
         private val MIN_VELOCITY = 400.dp.toFloat()
         private const val DISTANCE_THRESHOLD = 0.3
         private const val START_SCRIM_ALPHA = 0.8
+
+        private const val TAG = "SwipeView"
     }
 
     private val dragHelperCallback = object : ViewDragHelper.Callback() {
@@ -55,6 +57,8 @@ class SwipeView @JvmOverloads constructor(
 
     private val view: View get() = getChildAt(0)
 
+    private val nestedScrollInterceptor by lazy { NestedScrollInterceptor(view) }
+
     fun reset() {
         view.offsetLeftAndRight(-view.left)
     }
@@ -69,8 +73,9 @@ class SwipeView @JvmOverloads constructor(
         return true
     }
 
-    override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
-        return dragHelper.shouldInterceptTouchEvent(event) || super.onInterceptTouchEvent(event)
+    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+        return dragHelper.shouldInterceptTouchEvent(ev) &&
+                nestedScrollInterceptor.shouldInterceptTouchEvent(ev)
     }
 
     override fun computeScroll() {
