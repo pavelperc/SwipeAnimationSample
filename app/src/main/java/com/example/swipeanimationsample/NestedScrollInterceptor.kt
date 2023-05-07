@@ -23,13 +23,12 @@ class NestedScrollInterceptor(private val view: View) {
             }
 
             MotionEvent.ACTION_MOVE -> {
-//                val dx = (ev.x - lastX).toInt().coerceIn(-VELOCITY_LIMIT, VELOCITY_LIMIT)
                 val dx = (ev.x - lastX).toInt()
-                if (dx < 0) return false // support only left slide
+                if (dx < 0) return false // support only right swipe
 
                 val canScroll = canScroll(view, false, dx, ev.x.toInt(), ev.y.toInt())
                 lastX = ev.x
-                Log.d(TAG, "canScroll $canScroll, dx $dx, x ${ev.x.toInt()}, y ${ev.y.toInt()}")
+//                Log.d(TAG, "canScroll $canScroll, dx $dx, x ${ev.x.toInt()}, y ${ev.y.toInt()}")
                 !canScroll
             }
 
@@ -59,10 +58,11 @@ class NestedScrollInterceptor(private val view: View) {
             for (i in count - 1 downTo 0) {
                 // This will not work for transformed views in Honeycomb+
                 val child = group.getChildAt(i)
-                if (x + scrollX >= child.left && x + scrollX < child.right && y + scrollY >= child.top && y + scrollY < child.bottom && canScroll(
-                        child, true, dx, x + scrollX - child.left,
-                        y + scrollY - child.top
-                    )
+                if (x + scrollX >= child.left &&
+                    x + scrollX < child.right &&
+                    y + scrollY >= child.top &&
+                    y + scrollY < child.bottom &&
+                    canScroll(child, true, dx, x + scrollX - child.left, y + scrollY - child.top)
                 ) {
                     return true
                 }
