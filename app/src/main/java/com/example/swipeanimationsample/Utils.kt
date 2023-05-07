@@ -1,4 +1,4 @@
-package com.example.motionlayoutsample
+package com.example.swipeanimationsample
 
 import android.content.res.Resources
 

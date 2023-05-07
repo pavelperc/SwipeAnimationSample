@@ -1,4 +1,4 @@
-package com.example.motionlayoutsample
+package com.example.swipeanimationsample
 
 import android.annotation.SuppressLint
 import android.content.Context

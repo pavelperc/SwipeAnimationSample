@@ -1,4 +1,4 @@
-package com.example.motionlayoutsample
+package com.example.swipeanimationsample
 
 import org.junit.Test
 

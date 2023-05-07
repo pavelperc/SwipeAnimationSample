@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.motionlayoutsample'
+    namespace 'com.example.swipeanimationsample'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.motionlayoutsample"
+        applicationId "com.example.swipeanimationsample"
         minSdk 24
         targetSdk 33
         versionCode 1

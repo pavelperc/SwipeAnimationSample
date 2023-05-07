@@ -1,8 +1,8 @@
-package com.example.motionlayoutsample
+package com.example.swipeanimationsample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.motionlayoutsample.databinding.ActivityMainBinding
+import com.example.swipeanimationsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
